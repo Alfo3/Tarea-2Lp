@@ -50,6 +50,7 @@ int main(){
     jugador->en_llamas = 0;
     jugador->simbolo = 'O';
     randomizar_tablero(juego.tablero, jugador);
+    actualizar_tablero(juego.tablero, jugador);
     Estacion* tabla_cortar = (Estacion*)malloc(sizeof(Estacion));
     tabla_cortar->simbolo = 'T';
     randomizar_tablero(juego.tablero, tabla_cortar);
@@ -62,6 +63,8 @@ int main(){
     Estacion* extintor = (Estacion*)malloc(sizeof(Estacion));
     extintor->simbolo = 'E';
     randomizar_tablero(juego.tablero, extintor);
+    
+    /*
     //ingredientes
     Ingrediente papa = {"Papa", 0, 0, 4, 0.02}; // crudo, cortado en 1 turno, 2% probabilidad de incendio
     Ingrediente pollo = {"Pollo", 0, 0, 5, 0.05}; // crudo, 5 turnos para cocinar, 5% probabilidad de incendio
@@ -78,7 +81,7 @@ int main(){
     Pedido mcCharly = {"El McCharly", {&papa, &pollo, &papa}, 0};
 
 
-
+    */
     char opcion;
     while (juego.turnos_restantes > 0){
         printf("\nTurnos restantes: %d\n", juego.turnos_restantes);
@@ -90,8 +93,41 @@ int main(){
         printf("4. Entregar pedido\n");
         printf("5. Salir\n");
         scanf(" %c", &opcion);
-        if (opcion == 'W' || opcion == 'A' || opcion == 'S' || opcion == 'D'){
-            printf("Mover a implementar\n");
+        if (opcion == 'W' || opcion == 'A' || opcion == 'S' || opcion == 'D') {
+            int movimiento;
+            printf("Casillas a mover hacia %s\n", 
+                   (opcion == 'W') ? "arriba" :
+                   (opcion == 'S') ? "abajo" :
+                   (opcion == 'A') ? "la izquierda" : "la derecha");
+            scanf("%d", &movimiento);
+        
+            int nueva_x = jugador->x;
+            int nueva_y = jugador->y;
+        
+            if (opcion == 'W') nueva_x -= movimiento;
+            else if (opcion == 'S') nueva_x += movimiento;
+            else if (opcion == 'A') nueva_y -= movimiento;
+            else if (opcion == 'D') nueva_y += movimiento;
+        
+            // Validar límites del tablero
+            if (nueva_x >= 0 && nueva_x < juego.tablero->filas &&
+                nueva_y >= 0 && nueva_y < juego.tablero->columnas) {
+        
+                juego.tablero->celdas[jugador->x][jugador->y] = jugador->debajo; // Celda anterior
+                jugador->debajo = juego.tablero->celdas[nueva_x][nueva_y]; // Guardar celda debajo
+                jugador->x = nueva_x;
+                jugador->y = nueva_y;
+
+                if (jugador->simbolo == 'O'){
+                    jugador->simbolo = 'V';
+                }
+
+                juego.tablero->celdas[jugador->x][jugador->y] = jugador;
+        
+                juego.turnos_restantes--;
+            } else {
+                printf("Movimiento fuera de los limites\n");
+            }
         }
         else if (opcion == '2'){
             printf("ejecutar accion a implementar\n");

@@ -9,7 +9,8 @@ typedef struct {
 
 void inicializar_tablero(Tablero* tablero, int filas, int columnas);
 void mostrar_tablero(Tablero* tablero);
-void actualizar_tablero(Tablero* tablero, int x, int y, void* elemento);
+void actualizar_tablero(Tablero* tablero, void* elemento);
+void actualizar_celdas(Tablero* tablero, int x, int y, void* elemento);
 void liberar_tablero(Tablero* tablero);
 void randomizar_tablero(Tablero* tablero, void* elemento);
 

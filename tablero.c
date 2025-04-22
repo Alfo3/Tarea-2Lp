@@ -15,16 +15,6 @@ void inicializar_tablero(Tablero* tablero, int filas, int columnas) {
     }
 }
 
-void liberar_tablero(Tablero* tablero) {
-    if (tablero == NULL || tablero->celdas == NULL) {
-        return; // No hay nada que liberar
-    }
-    for (int i = 0; i < tablero->filas; i++){
-        free(tablero->celdas[i]);
-    }
-    free(tablero->celdas);
-    tablero->celdas = NULL;
-}
 
 void mostrar_tablero(Tablero* tablero){
     for (int i = 0; i < tablero->filas; i++){
@@ -36,17 +26,48 @@ void mostrar_tablero(Tablero* tablero){
             else{
                 Estacion* estacion = (Estacion*)elemento;
                 Jugador* jugador = (Jugador*)elemento;
-                if (estacion->simbolo){
-                    printf("[%c]", estacion->simbolo);
-                }
-                else if (jugador->simbolo){ 
+                if (jugador->simbolo){ 
                     printf("[%c]", jugador->simbolo);
+                }
+                else {
+                    printf("[%c]", estacion->simbolo);
                 }
             }
         }
     printf("\n");
     }
 }
+
+void actualizar_tablero(Tablero* tablero, void* elemento) {
+    // Primero: actualizar coordenadas del jugador si existe en el tablero
+    for (int i = 0; i < tablero->filas; i++) {
+        for (int j = 0; j < tablero->columnas; j++) {
+            void* celda = tablero->celdas[i][j];
+            if (celda != NULL) {
+                Jugador* posible_jugador = (Jugador*)celda;
+                // Verificamos si tiene el símbolo de un jugador
+                if (posible_jugador->simbolo == 'O') {
+                    posible_jugador->x = i;
+                    posible_jugador->y = j;
+                }
+            }
+        }
+    }
+}
+
+
+
+void liberar_tablero(Tablero* tablero) {
+    if (tablero == NULL || tablero->celdas == NULL) {
+        return; // No hay nada que liberar
+    }
+    for (int i = 0; i < tablero->filas; i++){
+        free(tablero->celdas[i]);
+    }
+    free(tablero->celdas);
+    tablero->celdas = NULL;
+}
+
 void randomizar_tablero(Tablero* tablero, void* elemento){
     int x, y;
     do {

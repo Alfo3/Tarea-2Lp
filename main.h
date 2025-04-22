@@ -20,6 +20,7 @@ typedef struct{
     int y; // coordenada y en el tablero
     int en_llamas; // 0 si no está en llamas, 1 si está en llamas (por atravesar estacion en llamas)
     char simbolo; // simbolo del jugador
+    void* debajo; // puntero a la celda debajo del jugador (estacion)
 } Jugador;
 
 void iniciarJuegoDificultad(Juego* juego); // Inicializa el juego con la dificultad seleccionada
