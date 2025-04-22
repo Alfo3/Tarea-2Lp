@@ -50,7 +50,7 @@ int main(){
     jugador->en_llamas = 0;
     jugador->simbolo = 'O';
     randomizar_tablero(juego.tablero, jugador);
-    actualizar_tablero(juego.tablero, jugador);
+    encontrar_jugador(juego.tablero, jugador);
     Estacion* tabla_cortar = (Estacion*)malloc(sizeof(Estacion));
     tabla_cortar->simbolo = 'T';
     randomizar_tablero(juego.tablero, tabla_cortar);

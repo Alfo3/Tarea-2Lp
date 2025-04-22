@@ -38,7 +38,7 @@ void mostrar_tablero(Tablero* tablero){
     }
 }
 
-void actualizar_tablero(Tablero* tablero, void* elemento) {
+void encontrar_jugador(Tablero* tablero, void* elemento) {
     // Primero: actualizar coordenadas del jugador si existe en el tablero
     for (int i = 0; i < tablero->filas; i++) {
         for (int j = 0; j < tablero->columnas; j++) {
@@ -55,6 +55,9 @@ void actualizar_tablero(Tablero* tablero, void* elemento) {
     }
 }
 
+actualizar_celdas(Tablero* tablero, int x, int y, void* elemento){
+    
+}
 
 
 void liberar_tablero(Tablero* tablero) {
