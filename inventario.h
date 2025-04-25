@@ -9,9 +9,10 @@ typedef struct {
     int prob_incendio; // probabilidad de causar incendio
 } Ingrediente;
 
-void crearInverntario();
+void crearInventario();
 void agregarIngrediente();
 void eliminarIngrediente();
 void verInventario();
+void liberarInventario();
 
 #endif // INVENTARIO_H

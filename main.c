@@ -63,25 +63,9 @@ int main(){
     Estacion* extintor = (Estacion*)malloc(sizeof(Estacion));
     extintor->simbolo = 'E';
     randomizar_tablero(juego.tablero, extintor);
+
+    crearInventario(); // Inicializa el inventario
     
-    /*
-    //ingredientes
-    Ingrediente papa = {"Papa", 0, 0, 4, 0.02}; // crudo, cortado en 1 turno, 2% probabilidad de incendio
-    Ingrediente pollo = {"Pollo", 0, 0, 5, 0.05}; // crudo, 5 turnos para cocinar, 5% probabilidad de incendio
-    Ingrediente hamburguesa = {"Hamburguesa", 0, 0, 3, 0.03}; // cruda, 3 turnos para cocinar, 3% probabilidad de incendio
-    Ingrediente arroz = {"Arroz", 0, 0, 2, 0.01}; // crudo, 2 turnos para cocinar, 1% probabilidad de incendio
-    Ingrediente pasta = {"Pasta", 0, 0, 2, 0.01}; // cruda, 2 turnos para cocinar, 1% probabilidad de incendio
-    Ingrediente tomate = {"Tomate", 0, 0, 1, 0.0}; // crudo, 1 turno para cortar
-    Ingrediente lechuga = {"Lechuga", 0, 0, 1, 0.0}; // cruda, 1 turno para cortar
-    Ingrediente pan = {"Pan", 0, 0, 0, 0.0}; // no necesita preparación
-    Ingrediente extintor_item = {"Extintor", 0, 1, 0, 0.0}; // extintor, no necesita preparación
-    Ingrediente* ingredientes[7] = {&papa, &pollo, &hamburguesa, &arroz, &pasta, &tomate, &lechuga, &pan, &extintor_item};
-
-    // Pedidos 
-    Pedido mcCharly = {"El McCharly", {&papa, &pollo, &papa}, 0};
-
-
-    */
     char opcion;
     while (juego.turnos_restantes > 0){
         printf("\nTurnos restantes: %d\n", juego.turnos_restantes);
@@ -133,7 +117,7 @@ int main(){
             printf("ejecutar accion a implementar\n");
         }
         else if (opcion == '3'){
-            printf("ver inventario a implementar\n");
+            verInventario(); // Ver el inventario        }
         }
         else if (opcion == '4'){
             printf("entregar pedido a implementar\n");
@@ -153,5 +137,6 @@ int main(){
     free(jugador);
     free(juego.tablero);
     free(juego.pedido);
+    liberarInventario(); // Liberar el inventario
     return 0;
 }

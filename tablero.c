@@ -19,17 +19,17 @@ void inicializar_tablero(Tablero* tablero, int filas, int columnas) {
 void mostrar_tablero(Tablero* tablero){
     for (int i = 0; i < tablero->filas; i++){
         for (int j = 0; j < tablero->columnas; j++){
-            void* elemento = tablero->celdas[i][j];
-            if (elemento == NULL){
+            void* celda = tablero->celdas[i][j];
+            if (celda == NULL){
                 printf("[ ]");
             }
-            else{
-                Estacion* estacion = (Estacion*)elemento;
-                Jugador* jugador = (Jugador*)elemento;
-                if (jugador->simbolo){ 
-                    printf("[%c]", jugador->simbolo);
+            else{ 
+                Jugador* elemento = (Jugador*)celda;
+                if (elemento->simbolo) { // Si es un jugador
+                    printf("[%c]", elemento->simbolo);
                 }
                 else {
+                    Estacion* estacion = (Estacion*)celda;
                     printf("[%c]", estacion->simbolo);
                 }
             }
@@ -55,8 +55,13 @@ void encontrar_jugador(Tablero* tablero, void* elemento) {
     }
 }
 
-actualizar_celdas(Tablero* tablero, int x, int y, void* elemento){
-    
+void actualizar_celdas(Tablero* tablero, int x, int y, void* elemento){
+    // Actualiza la celda en la posición (x, y) con el nuevo elemento
+    if (x >= 0 && x < tablero->filas && y >= 0 && y < tablero->columnas) {
+        tablero->celdas[x][y] = elemento;
+    } else {
+        printf("Coordenadas fuera de los limites del tablero\n");
+    }
 }
 
 
